@@ -229,6 +229,9 @@ type
 
   TCustomSynEdit = class(TCustomControl)
   private
+{$IF CompilerVersion >= 23}
+    procedure CMStyleChanged(var Message: TMessage); message CM_STYLECHANGED;
+{$IFEND}
     procedure CMHintShow(var Message: TCMHintShow); message CM_HINTSHOW;
     procedure WMCancelMode(var Message: TMessage); message WM_CANCELMODE;
     procedure WMCaptureChanged(var Msg: TMessage); message WM_CAPTURECHANGED;
@@ -343,6 +346,11 @@ type
     FOrigFontSize: Integer;
     FOrigGutterFontSize: Integer;
     FDisplayFlowControl: TSynDisplayFlowControl;
+
+    // OLE drag-drop target — stored as a field so RevokeDragDrop can be called
+    // from both DestroyWnd (RecreateWnd path) and WMDestroy (final destruction
+    // path), with the field acting as a guard against double-revoke.
+    FDropTarget: IDropTarget;
 
     // Accessibility
     FUIAutomationProvider: IInterface;  // IRawElementProviderSimple
@@ -520,6 +528,7 @@ type
       MousePos: TPoint): Boolean; override;
     procedure CreateParams(var Params: TCreateParams); override;
     procedure CreateWnd; override;
+    procedure DestroyWnd; override;
     procedure InvalidateRect(const aRect: TRect; aErase: Boolean); virtual;
     procedure DblClick; override;
     procedure TripleClick; virtual;
@@ -2483,9 +2492,31 @@ var
     Attr: TSynHighlighterAttributes;
   begin
     if Bkground then
-      Result := Color
+    begin
+{$IF CompilerVersion >= 23}
+      // Use the style's edit-control background when Color is still a system
+      // colour constant (i.e. the user hasn't overridden it with an explicit RGB).
+      // GetSystemColor(clWindow) intentionally stays light in many dark VCL
+      // styles; GetStyleColor(scEdit) returns the correct styled edit background.
+      if (Color < 0) and (seClient in StyleElements) and
+         StyleServices.Enabled and not StyleServices.IsSystemStyle
+      then
+        Result := StyleServices.GetStyleColor(scEdit)
+      else
+{$IFEND}
+        Result := Color;
+    end
     else
-      Result := Font.Color;
+    begin
+{$IF CompilerVersion >= 23}
+      if (Font.Color < 0) and (seClient in StyleElements) and
+         StyleServices.Enabled and not StyleServices.IsSystemStyle
+      then
+        Result := StyleServices.GetStyleFontColor(sfEditBoxTextNormal)
+      else
+{$IFEND}
+        Result := Font.Color;
+    end;
     if fHighlighter <> nil then
     begin
       if ResetHighlighter then
@@ -3144,7 +3175,11 @@ begin
       then
         HintColor := fHighlighter.WhitespaceAttribute.Foreground
       else
+{$IF CompilerVersion >= 23}
+        HintColor := clGrayText;
+{$ELSE}
         HintColor := clGray;
+{$IFEND}
       Layout.Draw(RT, fGutterWidth + fTextMargin, 0, HintColor);
     end;
     // Nothing else to do
@@ -3339,7 +3374,15 @@ begin
     if LastChar > 0 then
     begin
       if FullRowFG = clNone then
-        FGColor := Font.Color
+      begin
+        FGColor := Font.Color;
+{$IF CompilerVersion >= 23}
+        if (FGColor < 0) and (seClient in StyleElements) and
+           StyleServices.Enabled and not StyleServices.IsSystemStyle
+        then
+          FGColor := StyleServices.GetStyleFontColor(sfEditBoxTextNormal);
+{$IFEND}
+      end
       else
         FGColor := FullRowFG;
       Layout.Draw(RT, FTextOffset + XRowOffset, YRowOffset(Row), FGColor);
@@ -4561,7 +4604,12 @@ begin
     FUIAutomationProvider := nil;
   end;
 
-  RevokeDragDrop(Handle);
+  // FDropTarget guard: DestroyWnd (RecreateWnd path) may have already revoked;
+  // only revoke here if it hasn't been done yet.
+  if FDropTarget <> nil then begin
+    RevokeDragDrop(Handle);
+    FDropTarget := nil;
+  end;
 
   inherited;
 end;
@@ -7432,6 +7480,21 @@ begin
   ClearTrackChanges;
 end;
 
+{$IF CompilerVersion >= 23}
+procedure TCustomSynEdit.CMStyleChanged(var Message: TMessage);
+begin
+  // Do NOT call inherited here. TWinControl.CMStyleChanged can trigger
+  // RecreateWnd via VCL's style hook infrastructure, which would create a new
+  // TSynDropTarget and register it with OLE. If the window is subsequently
+  // destroyed without WM_DESTROY being dispatched (e.g. during app shutdown),
+  // OLE retains the unreleased IDropTarget reference causing a memory leak.
+  // Since TCustomSynEdit is fully custom-drawn, inherited would only Invalidate,
+  // which we do explicitly below.
+  TSynDWrite.ResetRenderTarget;
+  Invalidate;
+end;
+{$IFEND}
+
 procedure TCustomSynEdit.CMHintShow(var Message: TCMHintShow);
 var
   CanShow: Boolean;
@@ -8589,10 +8652,24 @@ begin
       OnDragLeave := OleDragLeave;
       OnDrop := OleDrop;
     end;
-    RegisterDragDrop (Handle, DropTarget);
+    FDropTarget := DropTarget;  // hold an interface reference as revoke guard
+    RegisterDragDrop(Handle, FDropTarget);
   end;
 
   UpdateScrollBars;
+end;
+
+procedure TCustomSynEdit.DestroyWnd;
+begin
+  // Called during RecreateWnd (NOT during final destruction — see WMDestroy).
+  // Revoke here to release OLE's reference before the old handle is invalidated,
+  // and nil FDropTarget so WMDestroy (which fires immediately after, when
+  // DestroyWindow sends WM_DESTROY) skips the already-revoked registration.
+  if FDropTarget <> nil then begin
+    RevokeDragDrop(Handle);
+    FDropTarget := nil;
+  end;
+  inherited;
 end;
 
 procedure TCustomSynEdit.InvalidateRange(const BB, BE: TBufferCoord; const

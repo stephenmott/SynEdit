@@ -13,7 +13,7 @@ The Original Code is: SynEditPrintPreview.pas, released 2000-06-01.
 The Initial Author of the Original Code is Morten J. Skovrup.
 Portions written by Morten J. Skovrup are copyright 2000 Morten J. Skovrup.
 Portions written by Michael Hieke are copyright 2000 Michael Hieke.
-Unicode translation by Maël Hörz.
+Unicode translation by Maï¿½l Hï¿½rz.
 All Rights Reserved.
 
 Contributors to the SynEdit project are listed in the Contributors.txt file.
@@ -66,6 +66,9 @@ type
   TSynEditPrintPreview = class(TCustomControl)
   private
     FPaperRect: TRect;
+{$IF CompilerVersion >= 23}
+    procedure CMStyleChanged(var Message: TMessage); message CM_STYLECHANGED;
+{$IFEND}
   protected
     FBorderStyle: TBorderStyle;
     FSynEditPrint: TSynEditPrint;
@@ -270,9 +273,17 @@ begin
       // we work in MM_TEXT mapping mode here...
     rcClip := ClipRect;
     if IsRectEmpty(rcClip) then Exit;
+{$IF CompilerVersion >= 23}
+    Brush.Color := StyleServices.GetSystemColor(Self.Color);
+{$ELSE}
     Brush.Color := Self.Color;
+{$IFEND}
     Brush.Style := bsSolid;
+{$IF CompilerVersion >= 23}
+    Pen.Color := StyleServices.GetSystemColor(clWindowText);
+{$ELSE}
     Pen.Color := clBlack;
+{$IFEND}
     Pen.Width := 1;
     Pen.Style := psSolid;
     if (csDesigning in ComponentState) or (not Assigned(FSynEditPrint)) then begin
@@ -295,7 +306,11 @@ begin
     if (NULLREGION <> ExtSelectClipRgn(Handle, rgnPaper, RGN_DIFF)) then
       FillRect(rcClip);
       // paper shadow
+{$IF CompilerVersion >= 23}
+    Brush.Color := StyleServices.GetSystemColor(clGrayText);
+{$ELSE}
     Brush.Color := clDkGray;
+{$IFEND}
     with FPaperRect do begin
       for i := 1 to FShadow_Size do
         PolyLine([Point(Left + i, Bottom + i), Point(Right + i, Bottom + i),
@@ -804,6 +819,14 @@ function TSynEditPrintPreview.GetPageCount: Integer;
 begin
   Result := SynEditPrint.PageCount;
 end;
+
+{$IF CompilerVersion >= 23}
+procedure TSynEditPrintPreview.CMStyleChanged(var Message: TMessage);
+begin
+  inherited;
+  Invalidate;
+end;
+{$IFEND}
 
 initialization
  TCustomStyleEngine.RegisterStyleHook(TSynEditPrintPreview, TScrollingStyleHook);

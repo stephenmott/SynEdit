@@ -32,12 +32,15 @@ program SimpleIDEDemo;
 uses
   Forms,
   SimpleIdeMain in 'SimpleIdeMain.pas' {SimpleIDEMainForm},
-  uSimpleIDEDebugger in 'uSimpleIDEDebugger.pas';
+  uSimpleIDEDebugger in 'uSimpleIDEDebugger.pas',
+  Vcl.Themes,
+  Vcl.Styles;
 
 {$R *.RES}
 
 begin
   Application.Initialize;
+  TStyleManager.TrySetStyle('Windows11 Modern Dark');
   Application.CreateForm(TSimpleIDEMainForm, SimpleIDEMainForm);
   Application.Run;
 end.

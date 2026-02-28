@@ -1,82 +1,82 @@
 object Form1: TForm1
   Left = 212
   Top = 100
-  Margins.Left = 5
-  Margins.Top = 5
-  Margins.Right = 5
-  Margins.Bottom = 5
+  Margins.Left = 7
+  Margins.Top = 7
+  Margins.Right = 7
+  Margins.Bottom = 7
   Caption = 'SynEdit Code Completion Demo for ctCode'
-  ClientHeight = 723
-  ClientWidth = 1104
+  ClientHeight = 1109
+  ClientWidth = 1540
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -17
+  Font.Height = -22
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OnCreate = FormCreate
   OnShow = FormShow
-  PixelsPerInch = 144
-  TextHeight = 20
+  PixelsPerInch = 192
+  TextHeight = 26
   object PageControl1: TPageControl
-    Left = 12
-    Top = 12
-    Width = 1130
-    Height = 806
-    Margins.Left = 5
-    Margins.Top = 5
-    Margins.Right = 5
-    Margins.Bottom = 5
+    Left = 16
+    Top = 16
+    Width = 1507
+    Height = 1075
+    Margins.Left = 7
+    Margins.Top = 7
+    Margins.Right = 7
+    Margins.Bottom = 7
     ActivePage = CodeCompletion
     TabOrder = 0
     object CodeCompletion: TTabSheet
-      Margins.Left = 5
-      Margins.Top = 5
-      Margins.Right = 5
-      Margins.Bottom = 5
+      Margins.Left = 7
+      Margins.Top = 7
+      Margins.Right = 7
+      Margins.Bottom = 7
       Caption = 'CodeCompletion'
       object Label3: TLabel
-        Left = 12
-        Top = 29
-        Width = 96
-        Height = 20
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 39
+        Width = 128
+        Height = 26
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'BiggestWord:'
       end
       object Label4: TLabel
-        Left = 336
-        Top = 29
-        Width = 33
-        Height = 20
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 448
+        Top = 39
+        Width = 46
+        Height = 26
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Title:'
       end
       object SynTest: TSynEdit
-        Left = 624
-        Top = 12
-        Width = 482
-        Height = 746
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 832
+        Top = 16
+        Width = 643
+        Height = 995
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -20
+        Font.Height = -27
         Font.Name = 'Courier New'
         Font.Style = []
         Font.Quality = fqClearTypeNatural
         TabOrder = 9
         UseCodeFolding = False
-        BookMarkOptions.LeftMargin = 3
-        BookMarkOptions.Xoffset = 18
-        ExtraLineSpacing = 3
+        BookmarkOptions.LeftMargin = 4
+        BookmarkOptions.Xoffset = 24
+        ExtraLineSpacing = 4
         Gutter.Font.Charset = DEFAULT_CHARSET
         Gutter.Font.Color = clWindowText
         Gutter.Font.Height = -11
@@ -156,42 +156,42 @@ object Form1: TForm1
           end>
       end
       object edBiggestWord: TEdit
-        Left = 120
-        Top = 24
-        Width = 182
-        Height = 28
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 160
+        Top = 32
+        Width = 243
+        Height = 34
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         TabOrder = 0
         Text = 'constructor'
         OnChange = edBiggestWordChange
       end
       object cbCase: TCheckBox
         Tag = 1
-        Left = 12
-        Top = 60
-        Width = 194
-        Height = 26
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 80
+        Width = 259
+        Height = 35
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Case Sensitive'
         TabOrder = 2
         OnClick = CheckBoxClick
       end
       object cbPrettyText: TCheckBox
         Tag = 3
-        Left = 12
-        Top = 96
-        Width = 194
-        Height = 26
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 128
+        Width = 259
+        Height = 35
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Use Pretty Text'
         Checked = True
         State = cbChecked
@@ -200,14 +200,14 @@ object Form1: TForm1
       end
       object cbUseInsertList: TCheckBox
         Tag = 4
-        Left = 12
-        Top = 132
-        Width = 194
-        Height = 26
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 176
+        Width = 259
+        Height = 35
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Use Insert List'
         Checked = True
         State = cbChecked
@@ -216,14 +216,14 @@ object Form1: TForm1
       end
       object cbLimitToMatchedText: TCheckBox
         Tag = 5
-        Left = 12
-        Top = 168
-        Width = 194
-        Height = 26
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 224
+        Width = 259
+        Height = 35
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Limit To Matched Text'
         Checked = True
         State = cbChecked
@@ -231,25 +231,25 @@ object Form1: TForm1
         OnClick = CheckBoxClick
       end
       object SynEdit1: TSynEdit
-        Left = 8
-        Top = 240
-        Width = 601
-        Height = 516
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 11
+        Top = 320
+        Width = 801
+        Height = 688
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -20
+        Font.Height = -27
         Font.Name = 'Consolas'
         Font.Style = []
         Font.Quality = fqClearTypeNatural
         TabOrder = 8
         UseCodeFolding = False
-        BookMarkOptions.LeftMargin = 3
-        BookMarkOptions.Xoffset = 18
-        ExtraLineSpacing = 3
+        BookmarkOptions.LeftMargin = 4
+        BookmarkOptions.Xoffset = 24
+        ExtraLineSpacing = 4
         Gutter.Font.Charset = DEFAULT_CHARSET
         Gutter.Font.Color = clWindowText
         Gutter.Font.Height = -11
@@ -293,68 +293,68 @@ object Form1: TForm1
           end>
       end
       object edTitle: TEdit
-        Left = 384
-        Top = 24
-        Width = 218
-        Height = 28
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 512
+        Top = 32
+        Width = 291
+        Height = 34
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         TabOrder = 1
         Text = 'Completion Proposal Demo'
         OnChange = edTitleChange
       end
       object Button3: TButton
-        Left = 360
-        Top = 168
-        Width = 113
-        Height = 38
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 480
+        Top = 224
+        Width = 151
+        Height = 51
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Font'
         TabOrder = 6
         OnClick = Button3Click
       end
       object Button4: TButton
-        Left = 492
-        Top = 168
-        Width = 113
-        Height = 38
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 656
+        Top = 224
+        Width = 151
+        Height = 51
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Title Font'
         TabOrder = 7
         OnClick = Button4Click
       end
       object cbShowGripper: TCheckBox
         Tag = 1
-        Left = 279
-        Top = 57
-        Width = 194
-        Height = 26
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 372
+        Top = 76
+        Width = 259
+        Height = 35
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Show Gripper'
         TabOrder = 10
         OnClick = cbShowGripperClick
       end
       object cbFormShadow: TCheckBox
         Tag = 3
-        Left = 279
-        Top = 93
-        Width = 194
-        Height = 26
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 372
+        Top = 124
+        Width = 259
+        Height = 35
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Form Shadow'
         Checked = True
         State = cbChecked
@@ -363,58 +363,58 @@ object Form1: TForm1
       end
     end
     object TabSheet2: TTabSheet
-      Margins.Left = 5
-      Margins.Top = 5
-      Margins.Right = 5
-      Margins.Bottom = 5
+      Margins.Left = 7
+      Margins.Top = 7
+      Margins.Right = 7
+      Margins.Bottom = 7
       Caption = 'Insert and Item Lists'
       ImageIndex = 1
       object Label1: TLabel
-        Left = 12
-        Top = 12
-        Width = 82
-        Height = 20
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 16
+        Width = 114
+        Height = 29
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Insert List'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -17
+        Font.Height = -23
         Font.Name = 'MS Sans Serif'
         Font.Style = [fsBold]
         ParentFont = False
       end
       object Label2: TLabel
-        Left = 12
-        Top = 360
-        Width = 66
-        Height = 20
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 480
+        Width = 92
+        Height = 29
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'ItemList'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -17
+        Font.Height = -23
         Font.Name = 'MS Sans Serif'
         Font.Style = [fsBold]
         ParentFont = False
       end
       object mmoInsert: TMemo
-        Left = 12
-        Top = 36
-        Width = 1094
-        Height = 254
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 48
+        Width = 1459
+        Height = 339
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -17
+        Font.Height = -23
         Font.Name = 'Courier New'
         Font.Style = []
         Lines.Strings = (
@@ -424,17 +424,17 @@ object Form1: TForm1
         WordWrap = False
       end
       object mmoItem: TMemo
-        Left = 12
-        Top = 384
-        Width = 1094
-        Height = 314
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 512
+        Width = 1459
+        Height = 419
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -17
+        Font.Height = -23
         Font.Name = 'Courier New'
         Font.Style = []
         Lines.Strings = (
@@ -445,27 +445,27 @@ object Form1: TForm1
         WordWrap = False
       end
       object Button1: TButton
-        Left = 12
-        Top = 300
-        Width = 206
-        Height = 38
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 400
+        Width = 275
+        Height = 51
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Update Insert List'
         TabOrder = 2
         OnClick = Button1Click
       end
       object Button2: TButton
-        Left = 12
-        Top = 708
-        Width = 206
-        Height = 38
-        Margins.Left = 5
-        Margins.Top = 5
-        Margins.Right = 5
-        Margins.Bottom = 5
+        Left = 16
+        Top = 944
+        Width = 275
+        Height = 51
+        Margins.Left = 7
+        Margins.Top = 7
+        Margins.Right = 7
+        Margins.Bottom = 7
         Caption = 'Update Item List'
         TabOrder = 3
         OnClick = Button2Click
@@ -1435,8 +1435,8 @@ object Form1: TForm1
         Name = 'Item10'
       end>
     ImageCollection = ImageCollection1
-    Width = 24
-    Height = 24
+    Width = 32
+    Height = 32
     Left = 144
     Top = 472
   end

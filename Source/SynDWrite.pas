@@ -1551,6 +1551,9 @@ Uses
   System.Math,
   System.Win.ComObj,
   Vcl.Forms,
+{$IF CompilerVersion >= 23}
+  Vcl.Themes,
+{$IFEND}
   SynUnicode,
   SynEditTypes,
   SynEditMiscProcs;
@@ -1566,7 +1569,11 @@ var
 const
   CScale = 1 / 255;
 begin
+{$IF CompilerVersion >= 23}
+  RGB := ColorToRGB(StyleServices.GetSystemColor(AColor));
+{$ELSE}
   RGB := ColorToRGB(AColor);
+{$IFEND}
   Result.r := TColors(RGB).R * CScale;
   Result.g := TColors(RGB).G * CScale;
   Result.b := TColors(RGB).B * CScale;
@@ -1922,7 +1929,8 @@ end;
 
 class procedure TSynDWrite.ResetRenderTarget;
 begin
-  FSolidBrushes.Clear;
+  if FSolidBrushes <> nil then
+    FSolidBrushes.Clear;
   FGradientGutterBrush := nil;
   SingletonRenderTarget := nil;
 end;

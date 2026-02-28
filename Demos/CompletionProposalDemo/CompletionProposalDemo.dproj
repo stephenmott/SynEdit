@@ -68,6 +68,7 @@
         <DCC_UnitSearchPath>..\..\Source;..\..\Source\Highlighters;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=;CFBundleName=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <Custom_Styles>&quot;Windows11 Modern Dark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows11_Modern_Dark.vsf&quot;</Custom_Styles>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <BT_BuildType>Debug</BT_BuildType>
@@ -110,6 +111,8 @@
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <DCC_UnitSearchPath>..\..\Source\Highlighters;..\..\source</DCC_UnitSearchPath>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -141,17 +144,14 @@
                 <Source>
                     <Source Name="MainSource">CompletionProposalDemo.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k370.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp370.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>
-                <Platform value="Android">False</Platform>
-                <Platform value="Android64">False</Platform>
-                <Platform value="Linux64">False</Platform>
-                <Platform value="OSX64">False</Platform>
-                <Platform value="OSXARM64">False</Platform>
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">True</Platform>
-                <Platform value="iOSDevice64">False</Platform>
-                <Platform value="iOSSimARM64">False</Platform>
             </Platforms>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

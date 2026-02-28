@@ -56,7 +56,11 @@ uses
   SynEditMiscClasses,
   SynEditKeyCmds,
   System.Classes,
-  System.SysUtils;
+  System.SysUtils
+{$IF CompilerVersion >= 23}
+  , Vcl.Themes
+{$IFEND}
+  ;
 
 type
   TColorPopup = (cpGutter, cpRightEdge);
@@ -533,7 +537,11 @@ begin
       B.Canvas.Brush.Color:= C;
       B.Canvas.Brush.Style:= bsSolid;
       B.Canvas.Pen.Style:= psSolid;
+{$IF CompilerVersion >= 23}
+      B.Canvas.Pen.Color := StyleServices.GetSystemColor(clWindowText);
+{$ELSE}
       B.Canvas.Pen.Color:= clBlack;
+{$IFEND}
       B.Canvas.Rectangle(0,0,16,16);
       ImageList1.Add(B, nil);
       ColorPopup.Items[I].ImageIndex:= ColorPopup.Items[I].Tag;

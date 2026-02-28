@@ -10,7 +10,7 @@ the specific language governing rights and limitations under the License.
 
 The Original Code is: SynAutoCorrectEditor.pas, released 2001-10-05.
 Author of this file is Aaron Chan.
-Unicode translation by Maël Hörz.
+Unicode translation by Maï¿½l Hï¿½rz.
 All Rights Reserved.
 
 Contributors to the SynEdit and mwEdit projects are listed in the
@@ -36,7 +36,11 @@ interface
 
 uses
   Windows,  Messages, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls,
-  Buttons, Registry, SynAutoCorrect, SynUnicode, SysUtils, Classes;
+  Buttons, Registry, SynAutoCorrect, SynUnicode, SysUtils, Classes
+{$IF CompilerVersion >= 23}
+  , Vcl.Themes
+{$IFEND}
+  ;
 
 type
   TfrmAutoCorrectEditor = class(TForm)
@@ -216,7 +220,11 @@ begin
   { Paints the line in the middle of the listbox. }
   with lbxItems.Canvas do
   begin
+{$IF CompilerVersion >= 23}
+    Pen.Color := StyleServices.GetSystemColor(clWindowText);
+{$ELSE}
     Pen.Color := clBlack;
+{$IFEND}
     PenPos := Point(lbxItems.Width div 2 - 8, 0);
     LineTo(lbxItems.Width div 2 - 8, lbxItems.Height);
   end;
